@@ -12,16 +12,16 @@ public class UpdateTodoRequest {
 
     private Long id;
     private String title;
-    private String description;
+    private String summary;
     private String category;
 
     public UpdateTodoRequest() {
     }
 
-    public UpdateTodoRequest(Long id, String title, String description, String category) {
+    public UpdateTodoRequest(Long id, String title, String summary, String category) {
         this.id = id;
         this.title = title;
-        this.description = description;
+        this.summary = summary;
         this.category = category;
     }
 
@@ -30,6 +30,6 @@ public class UpdateTodoRequest {
                 .member(member)
                 .category(category)
                 .title(title)
-                .description(description).build();
+                .description(summary).build();
     }
 }

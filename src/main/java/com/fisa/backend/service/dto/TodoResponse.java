@@ -9,14 +9,14 @@ public class TodoResponse {
 
     private Long id;
     private String title;
-    private String description;
+    private String summary;
     private String category;
 
     @Builder
-    public TodoResponse(Long id, String title, String description, String category) {
+    public TodoResponse(Long id, String title, String summary, String category) {
         this.id = id;
         this.title = title;
-        this.description = description;
+        this.summary = summary;
         this.category = category;
     }
 
@@ -24,7 +24,7 @@ public class TodoResponse {
         return TodoResponse.builder()
                 .id(todo.getId())
                 .title(todo.getTitle())
-                .description(todo.getDescription())
+                .summary(todo.getDescription())
                 .category(todo.getCategory().getName())
                 .build();
     }

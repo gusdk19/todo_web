@@ -10,15 +10,15 @@ import lombok.Getter;
 public class AddTodoRequest {
 
     private String title;
-    private String description;
+    private String summary;
     private String category;
 
     private AddTodoRequest() {
     }
 
-    public AddTodoRequest(String title, String description, String category) {
+    public AddTodoRequest(String title, String summary, String category) {
         this.title = title;
-        this.description = description;
+        this.summary = summary;
         this.category = category;
     }
 
@@ -27,6 +27,6 @@ public class AddTodoRequest {
                 .member(member)
                 .category(category)
                 .title(title)
-                .description(description).build();
+                .description(summary).build();
     }
 }

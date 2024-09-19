@@ -32,7 +32,7 @@ public class TodoRestController {
         return ResponseEntity.created(URI.create(String.format(REDIRECT_URI, memberId))).build();
     }
 
-    @PostMapping("/delete/members/{memberId}/todos/{id}")
+    @DeleteMapping("/delete/members/{memberId}/todos/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long memberId, @PathVariable Long id) {
         todoRestService.delete(id);
         return ResponseEntity.ok().build();
@@ -40,6 +40,7 @@ public class TodoRestController {
 
     @PostMapping("/update/members/{memberId}/todos/{id}")
     public ResponseEntity<Void> update(@PathVariable Long memberId, @PathVariable Long id, @RequestBody UpdateTodoRequest updateTodoRequest) {
+        System.out.println("memberId: " + memberId);
         todoRestService.update(id, memberId, updateTodoRequest);
         return ResponseEntity.created(URI.create(String.format(REDIRECT_URI, memberId))).build();
     }
