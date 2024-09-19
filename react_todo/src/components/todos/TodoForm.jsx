@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
 import { TODO_CATEGORY_ICON } from '@/constants/icon'
 import { enteredTodoFormIsNotEmpty } from '@/utils/utils';
-import { useTodosDispatch } from '@/contexts/TodoContext';
 
 const TodoForm = ({ onClose, children, todo, memberId }) => {
-
-    const dispatch = useTodosDispatch();
 
     const isNewTodoForm = (children) => children.startsWith('New') ? true: false
 
@@ -15,7 +12,9 @@ const TodoForm = ({ onClose, children, todo, memberId }) => {
 
     const addOrUpdateTodoHandler = async () => {
         const todoData = { title, summary, category };
+
         if (isNewTodoForm(children)) {
+            // console.log(memberId);
             const response = await fetch(`http://localhost:8080/api/members/${memberId}/todos`, {
                 method: 'POST',
                 headers: {
@@ -24,33 +23,41 @@ const TodoForm = ({ onClose, children, todo, memberId }) => {
                 body: JSON.stringify(todoData),
             });
 
+            console.log(response);
             if (!response.ok) {
                 throw new Error('Failed to add todo');
             }
-
-            const result = await response.json();
-            dispatch({ type: 'ADD', newTodo: result });
+            try {
+                window.location.reload();
+            } catch (error) {
+                console.error('Reloading error:', error);
+            }
 
         } else {
-            const response = await fetch(`http://localhost:8080/api/todos/${todo.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(todoData),
-        });
+            console.log(memberId);
+            const response = await fetch(`http://localhost:8080/api/update/members/${memberId}/todos/${todo.id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(todoData),
+            });
 
-        if (!response.ok) {
-          throw new Error('Failed to update todo');
+            if (!response.ok) {
+                throw new Error('Failed to update todo');
+            }
+
+            try {
+                window.location.reload();
+            } catch (error) {
+                console.error('Reloading error:', error);
+            }
         }
 
-        const result = await response.json();
-        dispatch({ type: 'UPDATE', updateTodo: result });
-        }
         onClose();
     }
     
-    const isFormValid = enteredTodoFormIsNotEmpty(title, summary)
+    const isFormValid = enteredTodoFormIsNotEmpty(title, summary);
 
     return (
         <>

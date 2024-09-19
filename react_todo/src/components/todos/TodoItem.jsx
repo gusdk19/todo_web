@@ -3,14 +3,25 @@ import IconButton from "@/components/ui/IconButton";
 import { TODO_CATEGORY_ICON } from "@/constants/icon";
 import Modal from "@/components/ui/Modal";
 import TodoForm from "./TodoForm";
-import { createPortal } from "react-dom";
-import { useTodosDispatch } from "@/contexts/TodoContext";
 
-const TodoItem = ({ todo, onAdd, onUpdate }) => {
+const TodoItem = ({ todo, onAdd, onUpdate, memberId }) => {
   const [openModal, open] = useState(false);
   const closeModal = () => open(false);
+  const [todos, setTodos] = useState(todo);
 
-  const dispatch = useTodosDispatch();
+  function del() {
+    if(window.confirm('삭제 하시겠습니까?')) {
+      fetch(`http://localhost:8080/api/delete/members/${memberId}/todos/${todos.id}`, {
+        method: 'DELETE',
+      }).then(res=>{
+        if(res.ok) {
+          window.location.reload();
+        }
+      }).catch(error => {
+        console.error('Error deleting todo:', error);
+      })
+    }
+  }
 
   return (
     <li className="flex gap-4 justify-between my-4 py-4 px-4 border-[1px] bg-gray-700 rounded-md shadow-xl">
@@ -25,7 +36,7 @@ const TodoItem = ({ todo, onAdd, onUpdate }) => {
           >
             {todo.title}
           </h2>
-          <p className="mt-2 text-base text-gray-200">{todo.description}</p>
+          <p className="mt-2 text-base text-gray-200">{todo.summary}</p>
         </div>
       </div>
       <div className="flex items-center gap-1">
@@ -33,7 +44,7 @@ const TodoItem = ({ todo, onAdd, onUpdate }) => {
         <IconButton
           textColor="text-red-300"
           icon={"🗑"}
-          onClick={() => dispatch({ type: "DELETE", id: todo.id })}
+          onClick={del}
         />
       </div>
       {/* Modal 호출 부분 */}
@@ -44,6 +55,7 @@ const TodoItem = ({ todo, onAdd, onUpdate }) => {
             onClose={closeModal}
             todo={todo}
             onUpdate={onUpdate}
+            memberId={memberId}
           >
             Update Todo
           </TodoForm>

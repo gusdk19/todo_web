@@ -15,7 +15,6 @@ const TodoFilter = ({ memberId }) => {
   }
 
   const fetchTodos = async (category = 'ALL') => {
-    console.log(category);
     try {
       const response = await fetch(`http://localhost:8080/api/members/${memberId}/todos?category=${category}`);
       const data = await response.json();

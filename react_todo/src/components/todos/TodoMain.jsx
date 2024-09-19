@@ -37,7 +37,7 @@ const TodoMain = () => {
           </TodoHeader>
 
           <TodoBody>
-            <TodoList />
+            <TodoList memberId={memberId}/>
           </TodoBody>
 
         </TodoProvider>
