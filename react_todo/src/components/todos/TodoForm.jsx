@@ -3,7 +3,7 @@ import { TODO_CATEGORY_ICON } from '@/constants/icon'
 import { enteredTodoFormIsNotEmpty } from '@/utils/utils';
 import { useTodosDispatch } from '@/contexts/TodoContext';
 
-const TodoForm = ({ onClose, children, todo }) => {
+const TodoForm = ({ onClose, children, todo, memberId }) => {
 
     const dispatch = useTodosDispatch();
 
@@ -16,7 +16,7 @@ const TodoForm = ({ onClose, children, todo }) => {
     const addOrUpdateTodoHandler = async () => {
         const todoData = { title, summary, category };
         if (isNewTodoForm(children)) {
-            const response = await fetch('http://localhost:8080/api/members/{memberId}/todos', {
+            const response = await fetch(`http://localhost:8080/api/members/${memberId}/todos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

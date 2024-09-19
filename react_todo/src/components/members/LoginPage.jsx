@@ -24,7 +24,11 @@ const LoginPage = () => {
         throw new Error('Login failed');
       }
 
-      navigate("/todos");
+      const data = await response.json();
+      console.log(data);
+      const memberId = data.id;
+
+      navigate(`/members/${memberId}/todos`, {state: { memberId }});
     }
     catch (error) {
       console.error('Login error: ', error);

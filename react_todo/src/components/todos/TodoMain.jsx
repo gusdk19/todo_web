@@ -6,8 +6,12 @@ import NewModal from "@/components/ui/NewModal";
 import TodoForm from "@/components/todos/TodoForm";
 import TodoFilter from "@/components/todos/TodoFilter";
 import TodoList from "@/components/todos/TodoList";
+import { useLocation } from "react-router-dom";
 
 const TodoMain = () => {
+  const location = useLocation();
+  const memberId = location.state?.memberId;
+
   return (
     <DefaultLayout>
       <header className="flex flex-col items-center">
@@ -26,10 +30,10 @@ const TodoMain = () => {
                 </button>
               </NewModal.Open>
               <NewModal.Dialog>
-                <TodoForm>New Todo</TodoForm>
+                <TodoForm memberId={memberId}>New Todo</TodoForm>
               </NewModal.Dialog>
             </NewModal>
-            <TodoFilter />
+            <TodoFilter memberId={memberId}/>
           </TodoHeader>
 
           <TodoBody>

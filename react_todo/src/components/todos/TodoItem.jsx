@@ -16,7 +16,7 @@ const TodoItem = ({ todo, onAdd, onUpdate }) => {
     <li className="flex gap-4 justify-between my-4 py-4 px-4 border-[1px] bg-gray-700 rounded-md shadow-xl">
       <div>
         <span className="text-lg font-medium text-gray-300">
-          {TODO_CATEGORY_ICON[todo.category]}
+          {TODO_CATEGORY_ICON[todo.category]} {todo.category}
         </span>
         <div>
           <h2
@@ -25,7 +25,7 @@ const TodoItem = ({ todo, onAdd, onUpdate }) => {
           >
             {todo.title}
           </h2>
-          <p className="mt-2 text-base text-gray-200">{todo.summary}</p>
+          <p className="mt-2 text-base text-gray-200">{todo.description}</p>
         </div>
       </div>
       <div className="flex items-center gap-1">
