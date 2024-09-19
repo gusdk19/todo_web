@@ -45,9 +45,8 @@ public class TodoRestController {
     }
 
     @GetMapping("/members/{memberId}/todos")
-    public List<TodoResponse> filtering(@PathVariable Long memberId, @RequestParam(defaultValue = "All") String category) {
+    public List<TodoResponse> filtering(@PathVariable Long memberId, @RequestParam(defaultValue = "ALL") String category) {
         return todoRestService.show(memberId, category);
-
     }
 
 

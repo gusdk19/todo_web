@@ -65,7 +65,7 @@ public class TodoRestService {
     }
 
     public List<Todo> findByMemberAndCategory(Long memberId, String category) {
-        if (isNull(category) || category.equals("All")) {
+        if (isNull(category) || category.equals("ALL")) {
             return todoRepository.findByMemberId(memberId);
         }
         return todoRepository.findByMemberIdAndCategoryName(memberId, category);

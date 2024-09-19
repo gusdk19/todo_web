@@ -18,7 +18,6 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class MemberRestController {
 
-    private static final String REDIRECT_URI = "/todos/%d";
     private final MemberRestService memberRestService;
 
     @PostMapping("/login")
@@ -28,7 +27,7 @@ public class MemberRestController {
         if (memberOpt.isPresent()) {
             Member member = memberOpt.get();
             if (member.getPassword().equals(loginRequest.getPassword())) {
-                MemberResponse memberResponse = new MemberResponse(member.getName(), member.getEmail(), member.getPassword());
+                MemberResponse memberResponse = new MemberResponse(member.getId(), member.getName(), member.getEmail(), member.getPassword());
                 // 리다이렉트할 URI
                 URI location = URI.create("/todos/" + member.getId());
 
